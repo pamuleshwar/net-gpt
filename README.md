@@ -10,7 +10,9 @@
 - Firebase setup
 - Deployement on firebase
 - Sign-up user in firebase
-
+- Sign in user
+- Created user account
+- Redux step setup with user slice
 
 
 
