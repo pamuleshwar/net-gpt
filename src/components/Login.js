@@ -1,8 +1,22 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Header from './Header';
+import { checkValidation } from '../utils/validate';
 
 const Login = () => {
     const [signUp, setSignUp] = useState(false);
+    const [validadtionMessage, setValidationMessage] = useState(null);
+
+    //email and password -> validation
+    const email = useRef(null);
+    const password = useRef(null);
+
+    
+    const handleSignUp = () => {
+        //validate the email and password
+        setValidationMessage(checkValidation(email?.current?.value,password?.current?.value));
+        
+        // console.log(validadtionMessage);
+    }
     
     // toggle the sign-up and sign-in form 
     const toggleSignUpForm = () => {
@@ -21,12 +35,19 @@ const Login = () => {
         </div>
 
         {/* sign in form */}
-        <form className='w-3/12 absolute p-12 bg-black my-40 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-85'>
+        <form onSubmit={(e) => e.preventDefault()} className='w-3/12 absolute p-12 bg-black my-40 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-85'>
             <h1 className='font-bold text-3xl pb-8'>{signUp ? "Sign Up" : "Sign In"}</h1>
+
             {signUp && <input type='text' placeholder='Name' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />}
-            <input type='text' placeholder='Email Address' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />
-            <input type='password' placeholder='Password' className='p-4 my-4 w-full bg-gray-600 rounded-md border'/>
-            <button className='p-2 my-4 w-full bg-red-700 rounded-md'>{signUp ? "Sign up" : "Sign in"}</button>
+
+            <input ref={email} type='text' placeholder='Email Address' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />
+            
+            <input ref={password} type='password' placeholder='Password' className='p-4 my-4 w-full bg-gray-600 rounded-md border'/>
+
+            {validadtionMessage && <p className='text-red-800 text-sm font-bold'>{validadtionMessage}</p>}
+            
+            <button className='p-2 my-4 w-full bg-red-700 rounded-md' onClick={handleSignUp}>{signUp ? "Sign up" : "Sign in"}</button>
+            
             <p className='text-gray-500'>{signUp ? "Already registered? " : "New to Netflix? "}<span className='text-white font-bold cursor-pointer' onClick={toggleSignUpForm}>{signUp ? "Sign in." :"Sign up now."}</span></p>
         </form>
     </div>
