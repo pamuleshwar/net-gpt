@@ -1,21 +1,61 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header';
 import { checkValidation } from '../utils/validate';
+import { auth } from '../utils/firebaseAuth';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
     const [signUp, setSignUp] = useState(false);
     const [validadtionMessage, setValidationMessage] = useState(null);
 
-    //email and password -> validation
+    //email and password
     const email = useRef(null);
     const password = useRef(null);
 
-    
+
     const handleSignUp = () => {
         //validate the email and password
-        setValidationMessage(checkValidation(email?.current?.value,password?.current?.value));
+        const message = checkValidation(email?.current?.value,password?.current?.value);
+        setValidationMessage(message);
         
-        // console.log(validadtionMessage);
+        if(message) return;
+
+        //sign-in/sign-up logic
+        if(signUp){
+            // sign-up logic
+            createUserWithEmailAndPassword(auth, email?.current?.value,password?.current?.value)
+            .then((userCredential) => {
+                //signed in -> log-in
+                const user = userCredential.user;
+                // console.log(user);
+                
+            })
+            .catch((error) => {
+                //not signed up
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                //give some error
+                setValidationMessage(errorCode+" "+errorMessage);
+            });
+
+        }else{
+            // sign in logic
+            signInWithEmailAndPassword(auth, email?.current?.value,password?.current?.value)
+            .then((userCredential) => {
+                //valid user -> signed in
+                const user = userCredential.user;
+                // console.log(user);
+                
+            })
+            .catch((error) => {
+                //invalid user -> error
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                setValidationMessage(errorCode+" "+errorMessage);
+            });
+        }
     }
     
     // toggle the sign-up and sign-in form 
@@ -31,7 +71,7 @@ const Login = () => {
 
         {/* background image */}
         <div className='absolute'>
-            <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fb5cb900-0cb6-4728-beb5-579b9af98fdd/web/IN-en-20250127-TRIFECTA-perspective_cf66f5a3-d894-4185-9106-5f45502fc387_large.jpg' />
+            <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fb5cb900-0cb6-4728-beb5-579b9af98fdd/web/IN-en-20250127-TRIFECTA-perspective_cf66f5a3-d894-4185-9106-5f45502fc387_large.jpg' alt='background-image' />
         </div>
 
         {/* sign in form */}

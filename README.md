@@ -7,6 +7,9 @@
 - Log-in/Sign-up form
 - Form validation
 - useRef hook
+- Firebase setup
+- Deployement on firebase
+- Sign-up user in firebase
 
 
 
