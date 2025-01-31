@@ -4,6 +4,9 @@ import { checkValidation } from '../utils/validate';
 import { auth } from '../utils/firebaseAuth';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { updateProfile } from "firebase/auth";
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
     const [signUp, setSignUp] = useState(false);
@@ -11,9 +14,12 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     //email and password
     const email = useRef(null);
     const password = useRef(null);
+    const name = useRef(null);
 
 
     const handleSignUp = () => {
@@ -30,9 +36,24 @@ const Login = () => {
             .then((userCredential) => {
                 //signed in -> log-in
                 const user = userCredential.user;
-                
-                //redirect to browse page
-                navigate("/browse");
+
+                //update the user info
+                updateProfile(user, {
+                    displayName: name.current.value,
+                  })
+                  //fixing the bug of current user
+                  .then(() => {
+                    //user successfully registered -> update the info of current user
+                    const {uid, email, displayName} = auth.currentUser;
+                    
+                    //add the user to store
+                    dispatch(addUser({uid : uid, email : email, displayName : displayName}));
+                    navigate("/browse");
+
+                  }).catch((error) => {
+                    // An error occurred
+                    setValidationMessage(error.message);
+                  });
             })
             .catch((error) => {
                 //not signed up
@@ -84,7 +105,7 @@ const Login = () => {
         <form onSubmit={(e) => e.preventDefault()} className='w-3/12 absolute p-12 bg-black my-40 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-85'>
             <h1 className='font-bold text-3xl pb-8'>{signUp ? "Sign Up" : "Sign In"}</h1>
 
-            {signUp && <input type='text' placeholder='Name' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />}
+            {signUp && <input ref={name} type='text' placeholder='Name' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />}
 
             <input ref={email} type='text' placeholder='Email Address' className='p-4 my-4 w-full bg-gray-600 rounded-md border' />
             

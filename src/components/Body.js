@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBrowserRouter , RouterProvider} from 'react-router-dom'
 import Browse from './Browse';
 import Login from './Login';
@@ -22,18 +22,16 @@ const Body = () => {
     ]);
 
     //authenticate the user
-    onAuthStateChanged(auth, (user) => {
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
         if (user) {
-          //user logged in/sign-up
-          const {uid, email, displayName} = user;
           
-          //add the user to store\
-          dispatch(addUser({uid : uid, email : email, displayName : displayName}));
         } else {
           // User is signed out -> remove the  user from store
           dispatch(removeUser());
         }
-    });
+      });
+    },[]);
 
   return (
     <div>
