@@ -13,6 +13,9 @@
 - Sign in user
 - Created user account
 - Redux step setup with user slice
+- Sign-out the user
+- Update user
+- Movies from TMDB..
 
 
 

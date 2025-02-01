@@ -21,18 +21,6 @@ const Body = () => {
         }
     ]);
 
-    //authenticate the user
-    useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          
-        } else {
-          // User is signed out -> remove the  user from store
-          dispatch(removeUser());
-        }
-      });
-    },[]);
-
   return (
     <div>
         <RouterProvider router={appRouter} />
