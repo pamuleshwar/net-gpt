@@ -15,6 +15,8 @@
 - Redux step setup with user slice
 - Sign-out the user
 - Update user
+- BugFix - Display name and profile picture update
+- BugFix - Signin and browse page navigation
 - Movies from TMDB..
 
 
