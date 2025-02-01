@@ -6,6 +6,7 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fireb
 import { updateProfile } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BACKGROUND_IMAGE } from '../utils/constant';
 
 const Login = () => {
     const [signUp, setSignUp] = useState(false);
@@ -91,7 +92,7 @@ const Login = () => {
 
         {/* background image */}
         <div className='absolute'>
-            <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fb5cb900-0cb6-4728-beb5-579b9af98fdd/web/IN-en-20250127-TRIFECTA-perspective_cf66f5a3-d894-4185-9106-5f45502fc387_large.jpg' alt='background-image' />
+            <img src={BACKGROUND_IMAGE} alt='background-image' />
         </div>
 
         {/* sign in form */}

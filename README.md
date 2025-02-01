@@ -17,6 +17,8 @@
 - Update user
 - BugFix - Display name and profile picture update
 - BugFix - Signin and browse page navigation
+- Unsubscribe the onAuthStateChanged callback
+- Keep the urls in constat files.
 - Movies from TMDB..
 
 
