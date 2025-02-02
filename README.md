@@ -20,6 +20,11 @@
 - Unsubscribe the onAuthStateChanged callback
 - Keep the urls in constat files.
 - Movies from TMDB..
+    - Login to TMDB
+    - Get the api access token
+    - Get the api from official documentation
+    - Make api call and get the data
+    - Put the data in redux store -> moviesSlice
 
 
 
