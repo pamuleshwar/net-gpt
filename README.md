@@ -25,7 +25,13 @@
     - Get the api from official documentation
     - Make api call and get the data
     - Put the data in redux store -> moviesSlice
-
+- Custom hooks
+- Movies Slice
+- Update store with movie data
+- Planning for main container & secondary container
+- Fetch data for trailer video
+- Update store with trailer data
+- Embaded youtube video
 
 
 # Features
