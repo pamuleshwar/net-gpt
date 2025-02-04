@@ -32,6 +32,12 @@
 - Fetch data for trailer video
 - Update store with trailer data
 - Embaded youtube video
+- Secondary component
+- Movie card
+- Browse page amazing
+- Popular, trending, now playing movies
+- GPT Search Page
+- GPT SearchBar
 
 
 # Features
