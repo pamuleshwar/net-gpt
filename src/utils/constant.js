@@ -13,3 +13,5 @@ export const API_OPTIONS = {
 };
 
 export const TMDB_IMG_CDN_URL = "https://image.tmdb.org/t/p/w400";
+
+export const OPENAI_KEY = "";
